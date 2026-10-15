@@ -1,0 +1,1 @@
+Source project for JUCE 8.0.6 VST3. Not a compiled plugin. Build via GitHub Actions. The pitch effect is a lightweight dual-head delay/granular approximation and can have audible artifacts; the first build must be verified in Actions.
