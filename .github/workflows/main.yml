@@ -1,0 +1,35 @@
+name: Build Windows VST3
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Configure project
+        run: cmake -S . -B build -A x64
+
+      - name: Build VST3
+        run: cmake --build build --config Release
+
+      - name: Upload VST3 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OctaveChaos-Windows-VST3
+          path: |
+            build/**/*.vst3
+            build/**/Release/*.vst3
+          if-no-files-found: error
